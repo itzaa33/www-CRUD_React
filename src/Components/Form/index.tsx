@@ -1,120 +1,90 @@
-import React from 'react'
-import Dropdow from './Dropdow'
-import Idcard from './CitizenId'
+import React, { useState } from 'react'
+import Title from './Title'
+import Name from './Name'
+import Lastname from './Lastname'
+import Birthday from './Birthday'
+import Nationality from './Nationality'
+import Citizenid from './Citizenid'
 import Gender from './Gender'
-import { Form, Row, Col, Input, DatePicker } from 'antd';
+import Phonenumber from './Phonenumber'
+import Passport from './Passport'
+import Expectedsalary from './Expectedsalary'
+
+import
+{
+  Form,
+  Row,
+  Col,
+  Button,
+} from 'antd';
 
 
 function Copm()
 {
+
+  function onFinish(e)
+  {
+
+  };
+
   return (
     <Form
+      onFinish={onFinish}
       className="ant-advanced-search-form"
     >
-      <Row gutter={24}>
-        <Col span={4}>
-          <Form.Item
-            name={`field`}
-            label={`Field`}
-            rules={[
-              {
-                required: true,
-                message: 'Input something!',
-              },
-            ]}
-          >
-            <Dropdow />
-          </Form.Item>
+      <Row gutter={30}>
+        <Col span={5}>
+          <Title />
         </Col>
-        <Col span={10}>
-          <Form.Item
-            name={`field`}
-            label={`Field`}
-            rules={[
-              {
-                required: true,
-                message: 'Input something!',
-              },
-            ]}
-          >
-            <Input placeholder="placeholder" />
-          </Form.Item>
+        <Col span={8}>
+          <Name />
         </Col>
-        <Col span={10}>
-          <Form.Item
-            name={`field`}
-            label={`Field`}
-            rules={[
-              {
-                required: true,
-                message: 'Input something!',
-              },
-            ]}
-          >
-            <Input placeholder="placeholder" />
-          </Form.Item>
+        <Col span={8}>
+          <Lastname />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={6}>
-          <Form.Item
-            name={`field`}
-            label={`Field`}
-            rules={[
-              {
-                required: true,
-                message: 'Input something!',
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
+          <Birthday />
         </Col>
         <Col span={10}>
-          <Form.Item
-            name={`field`}
-            label={`Field`}
-            rules={[
-              {
-                required: true,
-                message: 'Input something!',
-              },
-            ]}
-          >
-            <Dropdow />
-          </Form.Item>
+          <Nationality />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
-        <Form.Item
-          name={`field`}
-          label={`Field`}
-          rules={[
-            {
-              required: true,
-              message: 'Input something!',
-            },
-          ]}
-        >
-          <Idcard />
-        </Form.Item>
+        <Col span={24}>
+          <Citizenid />
+        </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
-        <Form.Item
-          name={`field`}
-          label={`Field`}
-          rules={[
-            {
-              required: true,
-              message: 'Input something!',
-            },
-          ]}
-        >
+        <Col span={24}>
           <Gender />
-        </Form.Item>
+        </Col>
+      </Row>
+      {/* ----------------------------------------------------- */}
+      <Phonenumber />
+      {/* ----------------------------------------------------- */}
+      <Row gutter={24}>
+        <Col span={10}>
+          <Passport />
+        </Col>
+      </Row>
+      {/* ----------------------------------------------------- */}
+      <Row gutter={24}>
+        <Col span={10}>
+          <Expectedsalary />
+        </Col>
+      </Row>
+      {/* ----------------------------------------------------- */}
+      <Row>
+        <Col span={24} style={{ textAlign: 'right' }}>
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
+        </Col>
       </Row>
     </Form>
   );

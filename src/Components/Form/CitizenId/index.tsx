@@ -1,13 +1,13 @@
 import React from 'react'
-import { Input, Row, Col } from 'antd';
+import { Form, Input, Row, Col } from 'antd';
 
 
-function Copm()
+function Comp()
 {
 
     return (
-
-        <Input.Group size="large">
+        <Form.Item
+            label={`Citizen ID`}>
             <Row gutter={8}>
                 <Col span={2}>
                     <Input defaultValue="0571" />
@@ -25,8 +25,8 @@ function Copm()
                     <Input defaultValue="26888888" />
                 </Col>
             </Row>
-        </Input.Group>
+        </Form.Item>
     );
 }
 
-export default Copm;
+export default Comp;

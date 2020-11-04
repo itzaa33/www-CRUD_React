@@ -1,16 +1,26 @@
 import React from 'react'
-import { Radio } from 'antd';
+import { Radio, Form } from 'antd';
 
-function Copm()
+function Comp()
 {
     return (
-        <Radio.Group >
-            <Radio value={1}>A</Radio>
-            <Radio value={2}>B</Radio>
-            <Radio value={3}>C</Radio>
-            <Radio value={4}>D</Radio>
-        </Radio.Group>
+        <Form.Item
+            name={`Gender`}
+            label={`Gender`}
+        // rules={[
+        //   {
+        //     required: true,
+        //     message: 'Input something!',
+        //   },
+        // ]}
+        >
+            <Radio.Group>
+                <Radio value={'Male'}>Male</Radio>
+                <Radio value={'Female'}>Female</Radio>
+                <Radio value={'Unisex'}>Unisex</Radio>
+            </Radio.Group>
+        </Form.Item>
     );
 }
 
-export default Copm;
+export default Comp;
