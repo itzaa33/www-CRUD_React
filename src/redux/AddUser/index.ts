@@ -1,18 +1,20 @@
 import { TypeProps, TypeAction } from './type'
+import moment from 'moment'
 
-var initialState: TypeProps = {
-    title: '',
+const initialState: TypeProps = {
+    title: 'Mr',
     name: '',
     lastname: '',
-    birthday: Date.now(),
-    nationality: '',
-    citizenid: '',
-    gender: '',
+    birthday: moment().format('MM/DD/YY'), 
+    nationality: 'Thai',
+    citizenid: ['','','','',''],
+    gender: 'Male',
+    phonenumber:['+66',''],
     passport: '',
-    expectedsalary: 0,
+    expectedsalary: '0',
 }
 
-type Action = {
+export type Action = {
     type: TypeAction,
     payload: TypeProps
 }
@@ -26,7 +28,11 @@ function addUserReducer(state = initialState, action: Action)
                 ...action.payload
             }
         case TypeAction.RESET_ADDUSER:
-            return initialState
+            return {
+                ...initialState,
+                citizenid: ['','','','',''],
+                phonenumber:['+66',''],
+            }
         default:
             return state
     }

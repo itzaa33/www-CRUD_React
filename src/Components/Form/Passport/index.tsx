@@ -1,20 +1,39 @@
 import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, Input } from 'antd';
 
-function Comp()
+type Props = {
+    error: boolean
+}
+
+const Comp: React.FC<Props> = (
+    {
+        error
+    }
+) =>
 {
+    const data = useSelector(setAddUser);
+    const dispatch = useDispatch();
+
+    function handlePassport(e: React.ChangeEvent<HTMLInputElement>)
+    {
+
+        dispatch(setAddUser(
+            {
+                ...data.payload.addUserReducer,
+                passport: e.target.value
+            }
+        ))
+    }
+
     return (
         <Form.Item
-            name={`Passport`}
             label={`Passport No`}
-        // rules={[
-        //   {
-        //     required: true,
-        //     message: 'Input something!',
-        //   },
-        // ]}
+            validateStatus={error ? 'error' : ''}
+            help={error ? 'Passport error' : ''}
         >
-            <Input defaultValue="0571" />
+            <Input value={data.payload.addUserReducer.passport} onChange={handlePassport} maxLength={9} />
         </Form.Item>
     );
 }

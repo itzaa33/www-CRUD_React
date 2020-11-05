@@ -1,11 +1,14 @@
-import { combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { logger  } from 'redux-logger'
 import addUserReducer from './AddUser'
-// import textReducer from './text'
 
 const reducers = combineReducers({
     addUserReducer,
 })
 
-const store = createStore(reducers)
+const store = createStore(
+    reducers,
+    // applyMiddleware(logger)
+)
 
 export default store

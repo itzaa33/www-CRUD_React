@@ -9,10 +9,11 @@ export type TypeProps = {
     title: string;
     name: string;
     lastname: string;
-    birthday: number;
+    birthday: string;
     nationality: string;
-    citizenid: string;
+    citizenid: string[];
     gender: string;
+    phonenumber: string[];
     passport: string;
-    expectedsalary: number;
+    expectedsalary: string;
 }

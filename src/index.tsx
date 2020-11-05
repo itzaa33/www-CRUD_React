@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import App from './App';
 import 'normalize.css/normalize.css';
+import 'moment/locale/th';
 import 'antd/dist/antd.css';
 import './index.css';
 
