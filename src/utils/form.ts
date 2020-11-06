@@ -1,4 +1,4 @@
-import { numberMoment } from '../utils/moment'
+import { yearsMoment } from '../utils/moment'
 
 export function checkLength(value: string, length: number)
 {
@@ -10,17 +10,16 @@ export function checkLength(value: string, length: number)
     return true
 }
 
-export function checkBrithday(value: string)
+export function checkBrithday(value: number)
 {
-    const date = new Date
-    const currentYear  = new Date().getFullYear()
-    const valueYear  = new Date(numberMoment(value)).getFullYear()
-console.log(valueYear)
-    if (numberMoment(value) < currentYear)
+    const currentYear = new Date().getFullYear()
+    const valueYear = yearsMoment(value)
+
+    if (valueYear < currentYear)
     {
         return false
     }
-
+   
     return true
 }
 

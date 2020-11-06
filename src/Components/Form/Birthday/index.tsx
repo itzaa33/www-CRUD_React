@@ -1,43 +1,31 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, DatePicker } from 'antd';
-import { setMoment, formatMoment } from '../../../utils/moment'
-import moment from 'moment'
+import { setMoment } from '../../../utils/moment'
 
 type Props = {
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
   error: boolean
 }
 
 const Comp: React.FC<Props> = (
   {
+    value,
+    setValue,
     error
   }
 ) =>
 {
-  const data = useSelector(setAddUser);
-  const dispatch = useDispatch();
 
   function handleBirthday(e)
   {
     if (!!e)
     {
-
-      dispatch(setAddUser(
-        {
-          ...data.payload.addUserReducer,
-          birthday: formatMoment(e)
-        }
-      ))
+      setValue(e.valueOf())
     }
     else
     {
-      dispatch(setAddUser(
-        {
-          ...data.payload.addUserReducer,
-          birthday: moment().format('MM/DD/YY')
-        }
-      ))
+      setValue(Date.now())
     }
 
   }
@@ -49,7 +37,7 @@ const Comp: React.FC<Props> = (
       help={error ? 'Birthday error' : ''}
     >
       <DatePicker
-        value={setMoment(data.payload.addUserReducer.birthday)}
+        value={setMoment(value)}
         onChange={handleBirthday}
         format={'MM/DD/YY'}
       />

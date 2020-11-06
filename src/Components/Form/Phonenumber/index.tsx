@@ -1,43 +1,49 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Select, Input, Row, Col, Form } from 'antd';
 
 // image
 import image from '../../../image/flag.png'
 
 type Props = {
-    error: boolean
+    value: string[];
+    setValue: React.Dispatch<React.SetStateAction<string[]>>;
+    error: boolean;
 }
 
 const Comp: React.FC<Props> = (
     {
+        value,
+        setValue,
         error
     }
 ) =>
 {
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
-
-    function handlePhonenumber(value: string, index: number)
+    function handlePhonenumber(data: string, index: number)
     {
-        let array = data.payload.addUserReducer.phonenumber
-
         if (index === 1)
         {
-            array[index] = value.replace(/[^0-9.]/g, '')
+            setValue(item =>
+            {
+                let array = item
+                array[index] = data.replace(/[^0-9.]/g, '')
+
+                return [
+                    ...array
+                ]
+            })
         }
         else
         {
-            array[index] = value
-        }
-
-        dispatch(setAddUser(
+            setValue(item =>
             {
-                ...data.payload.addUserReducer,
-                phonenumber: array
-            }
-        ))
+                let array = item
+                array[index] = data
+
+                return [
+                    ...array
+                ]
+            })
+        }
     }
 
     return (
@@ -50,7 +56,7 @@ const Comp: React.FC<Props> = (
                 <Col span={4}>
                     <Select
                         style={{ display: 'flex' }}
-                        value={data.payload.addUserReducer.phonenumber[0]}
+                        value={value[0]}
                         onChange={(e) => handlePhonenumber(e.toString(), 0)}
                     >
                         <Select.Option value="+66" style={{ display: 'flex' }}>
@@ -62,7 +68,7 @@ const Comp: React.FC<Props> = (
                     </Select>
                 </Col>
                 <Col span={4}>
-                    <Input value={data.payload.addUserReducer.phonenumber[1]} maxLength={9} onChange={e => handlePhonenumber(e.target.value, 1)} />
+                    <Input value={value[1]} maxLength={9} onChange={e => handlePhonenumber(e.target.value, 1)} />
                 </Col>
             </Row>
         </Form.Item>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import { setAddUser, resetAddUser } from '../../redux/AddUser/action'
-import * as Type from '../../redux/AddUser'
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from "react-redux";
+import { setAddUser } from '../../redux/ListsUser/action'
+import { addUser } from '../../utils/localStorageLists'
 import Title from './Title'
 import Name from './Name'
 import Lastname from './Lastname'
@@ -29,110 +30,196 @@ import
   Button,
 } from 'antd';
 
-
 function Copm()
 {
+  const [title, setTitle] = useState<string>('Mr')
+  const [name, setName] = useState<string>('')
+  const [lastname, setLastname] = useState<string>('')
+  const [birthday, setBirthday] = useState<number>(Date.now())
+  const [nationality, setNationality] = useState<string>('Thai')
+  const [citizenid, setCitizenid] = useState<string[]>(['', '', '', '', '', ''])
+  const [gender, setGender] = useState<string>('Male')
+  const [phonenumber, setPhonenumber] = useState<string[]>(['+66', ''])
+  const [passport, setPassport] = useState<string>('')
+  const [expectedsalary, setExpectedsalary] = useState<string>('')
+
   const [errorName, setErrorName] = useState<boolean>(false)
-  const [errorLastName, setErrorLastName] = useState<boolean>(false)
+  const [errorLastName, setErrorLastName] = useState<boolean>(null)
   const [errorBirthday, setErrorBirthday] = useState<boolean>(false)
-  const [errorCitizenid, setCitizenid] = useState<boolean>(false)
+  const [errorCitizenid, setErrorCitizenid] = useState<boolean>(false)
   const [errorPhonenumber, setErrorPhonenumber] = useState<boolean>(false)
   const [errorPassport, setErrorPassport] = useState<boolean>(false)
 
-  const data = useSelector<Type.Action>(setAddUser);
-  const dispack = useDispatch()
+  const data = useSelector(setAddUser);
+  const dispatch = useDispatch();
 
-  const {
-    name,
-    lastname,
-    birthday,
-    citizenid,
-    phonenumber,
-    passport,
-  } = data.payload.addUserReducer
-
-  function eiei()
-  {
-    dispack(resetAddUser())
-  }
+  // function eiei()
+  // {
+  //   let obj = {
+  //     id: uuidv4(),
+  //     title: 'title',
+  //     name: 'name',
+  //     lastname: 'lastname',
+  //     birthday: birthday,
+  //     nationality: 'nationality',
+  //     citizenid: 'citizenid',
+  //     gender: 'gender',
+  //     phonenumber: 'phonenumber',
+  //     passport: 'passport',
+  //     expectedsalary: 'expectedsalary',
+  //   }
+  //   dispatch(setAddUser(addUser(obj, data.payload)))
+  //   // localStorage.removeItem('stroe')
+  // }
 
   function onSubmit()
   {
-    setErrorName(checkLength(name, 0))
-    setErrorLastName(checkLength(lastname, 0))
-    setErrorBirthday(checkBrithday(birthday))
-    setCitizenid(checkCitizenid(citizenid))
-    setErrorPhonenumber(checkPhonenumber(phonenumber))
-    setErrorPassport(checkPassport(passport))
+    const errname = checkLength(name, 0)
+    const errlastname = checkLength(lastname, 0)
+    const errbirthday = checkBrithday(birthday)
+    const errcitizenid = checkCitizenid(citizenid)
+    const errphonenumber = checkPhonenumber(phonenumber)
+    const errpassport = checkPassport(passport)
 
-    if (!errorName && !errorLastName && !errorBirthday && !errorCitizenid && !errorPhonenumber && !errorPassport)
+    setErrorName(errname)
+    setErrorLastName(errlastname)
+    setErrorBirthday(errbirthday)
+    setErrorCitizenid(errcitizenid)
+    setErrorPhonenumber(errphonenumber)
+    setErrorPassport(errpassport)
+
+    if (!errname && !errlastname && !errbirthday && !errcitizenid && !errphonenumber && !errpassport)
     {
-      console.log(true)
+      let obj = {
+        id: uuidv4(),
+        title: title,
+        name: name,
+        lastname: lastname,
+        birthday: birthday,
+        nationality: nationality,
+        citizenid: citizenid.join(''),
+        gender: gender,
+        phonenumber: phonenumber.join(''),
+        passport: passport,
+        expectedsalary: expectedsalary,
+      }
+
+      // add
+      dispatch(setAddUser(addUser(obj, data.payload)))
+
+      // reset
+      setTitle('Mr')
+      setName('')
+      setLastname('')
+      setBirthday(Date.now())
+      setNationality('Thai')
+      setCitizenid(['', '', '', '', '', ''])
+      setGender('Male')
+      setPhonenumber(['+66', ''])
+      setPassport('')
+      setExpectedsalary('')
+
     }
   };
-
+  console.log(!errorName, !errorLastName, !errorCitizenid, !errorBirthday, !errorPhonenumber, !errorPassport, 'eiei')
   return (
-    <Form
+    <div
       className="ant-advanced-search-form"
     >
       <Row gutter={30}>
         <Col span={5}>
-          <Title />
+          <Title
+            value={title}
+            setValue={setTitle}
+          />
         </Col>
         <Col span={8}>
-          <Name error={errorName} />
+          <Name
+            value={name}
+            setValue={setName}
+            error={errorName}
+          />
         </Col>
         <Col span={8}>
-          <Lastname error={errorLastName} />
+          <Lastname
+            value={lastname}
+            setValue={setLastname}
+            error={errorLastName}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={6}>
-          <Birthday error={errorBirthday} />
+          <Birthday
+            value={birthday}
+            setValue={setBirthday}
+            error={errorBirthday}
+          />
         </Col>
         <Col span={10}>
-          <Nationality />
+          <Nationality
+            value={nationality}
+            setValue={setNationality}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={24}>
-          <Citizenid error={errorCitizenid} />
+          <Citizenid
+            value={citizenid}
+            setValue={setCitizenid}
+            error={errorCitizenid}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={24}>
-          <Gender />
+          <Gender
+            value={gender}
+            setValue={setGender}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
-      <Phonenumber error={errorPhonenumber} />
+      <Phonenumber
+        value={phonenumber}
+        setValue={setPhonenumber}
+        error={errorPhonenumber}
+      />
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={10}>
-          <Passport error={errorPassport} />
+          <Passport
+            value={passport}
+            setValue={setPassport}
+            error={errorPassport}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={10}>
-          <Expectedsalary />
+          <Expectedsalary
+            value={expectedsalary}
+            setValue={setExpectedsalary}
+          />
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
       <Row>
         <Col span={24} style={{ textAlign: 'right' }}>
-          <Button type="primary" onClick={onSubmit}>
+          <Button type="primary" onClick={()=>{onSubmit()}}>
             Search
           </Button>
         </Col>
       </Row>
-      <Button type="primary" onClick={eiei}>
+      {/* <Button type="primary" onClick={eiei}>
         eiei
-          </Button>
-    </Form>
+          </Button> */}
+    </div>
   );
 }
 

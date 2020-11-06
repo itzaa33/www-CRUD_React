@@ -1,29 +1,29 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, Input } from 'antd';
 
-function Comp()
+type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Comp: React.FC<Props> = (
+    {
+        value,
+        setValue,
+    }
+) =>
 {
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
 
     function handleExpectedsalary(e: React.ChangeEvent<HTMLInputElement>)
     {
-
-        dispatch(setAddUser(
-            {
-                ...data.payload.addUserReducer,
-                expectedsalary: e.target.value.replace(/[^0-9.]/g, '')
-            }
-        ))
+        setValue(e.target.value.replace(/[^0-9.]/g, ''))
     }
 
     return (
         <Form.Item
             label={`Expected Salary`}
         >
-            <Input value={data.payload.addUserReducer.expectedsalary} onChange={handleExpectedsalary} />
+            <Input value={value} onChange={handleExpectedsalary} />
         </Form.Item>
     );
 }

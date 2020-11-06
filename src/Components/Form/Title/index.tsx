@@ -1,28 +1,24 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, Select } from 'antd';
 
-const Comp = () =>
-{
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
+type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
-    function handleTitle(value: string)
+const Comp: React.FC<Props> = (
     {
-        dispatch(setAddUser(
-            {
-                ...data.payload.addUserReducer,
-                title: value
-            }
-        ))
+        value,
+        setValue
     }
+) =>
+{
 
     return (
         <Form.Item
             label={`Title`}
         >
-            <Select onChange={handleTitle} value={data.payload.addUserReducer.title}>
+            <Select onChange={e => setValue(e)} value={value}>
                 <Select.Option value="Mr">Mr</Select.Option>
                 <Select.Option value="Ms">Ms</Select.Option>
             </Select>

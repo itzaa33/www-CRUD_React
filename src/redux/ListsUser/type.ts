@@ -1,19 +1,21 @@
 export enum TypeAction
 {
     SET_ADDUSER = "SET_ADDUSER",
-    RESET_ADDUSER = "RESET_ADDUSER"
 }
 
 
-export type TypeProps = {
+export type TypeProps = TypeUser[] | null
+
+export type TypeUser = {
+    id: string;
     title: string;
     name: string;
     lastname: string;
-    birthday: string;
+    birthday: number;
     nationality: string;
-    citizenid: string[];
+    citizenid: string;
     gender: string;
-    phonenumber: string[];
+    phonenumber: string;
     passport: string;
     expectedsalary: string;
 }

@@ -1,30 +1,20 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, Input } from 'antd';
 
 type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
     error: boolean
 }
 
 const Comp: React.FC<Props> = (
     {
+        value,
+        setValue,
         error
     }
 ) =>
 {
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
-
-    function handleLastName(e: React.ChangeEvent<HTMLInputElement>)
-    {
-        dispatch(setAddUser(
-            {
-                ...data.payload.addUserReducer,
-                lastname: e.target.value
-            }
-        ))
-    }
 
     return (
         <Form.Item
@@ -32,7 +22,7 @@ const Comp: React.FC<Props> = (
             validateStatus={error ? 'error' : ''}
             help={error ? 'Last name error' : ''}
         >
-            <Input placeholder="placeholder" value={data.payload.addUserReducer.lastname} onChange={handleLastName} />
+            <Input value={value} onChange={e => setValue(e.target.value)} />
         </Form.Item>
     );
 }

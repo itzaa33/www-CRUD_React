@@ -1,16 +1,22 @@
 import moment from 'moment'
 
-export function setMoment(value: string)
+export function setMoment(value: number)
 {
-    return moment(value, 'MM/DD/YY')
+    var format = formatMoment(value)
+
+    return moment(format, 'MM/DD/YY')
 }
 
-export function formatMoment(value: string)
+function formatMoment(value: number)
 {
     return moment(value).format('MM/DD/YY')
 }
 
-export function numberMoment(value: string)
+export function yearsMoment(value: number)
 {
-    return moment(value, 'MM/DD/YY').unix()
+    const parse = parseInt(moment(value).format('YYYY'))
+    
+    return parse
 }
+
+

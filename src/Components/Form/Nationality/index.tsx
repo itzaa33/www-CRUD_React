@@ -1,31 +1,32 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Form, Select } from 'antd';
 
 // data
 import nationality from './Nationality.json'
 
-function Comp()
+type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Comp: React.FC<Props> = (
+    {
+        value,
+        setValue,
+    }
+) =>
 {
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
 
     function handleNationality(value: string)
     {
-        dispatch(setAddUser(
-            {
-                ...data.payload.addUserReducer,
-                nationality: value
-            }
-        ))
+        setValue(value)
     }
 
     return (
         <Form.Item
             label={`Nationality`}
         >
-            <Select onChange={handleNationality} value={data.payload.addUserReducer.nationality}>
+            <Select onChange={handleNationality} value={value}>
                 {
                     nationality.map((item, index) =>
                     {

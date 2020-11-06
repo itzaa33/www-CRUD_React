@@ -1,28 +1,23 @@
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { setAddUser } from '../../../redux/AddUser/action'
 import { Radio, Form } from 'antd';
 
-function Comp()
-{
-    const data = useSelector(setAddUser);
-    const dispatch = useDispatch();
+type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
-    function handleGender(value: string)
+const Comp: React.FC<Props> = (
     {
-        dispatch(setAddUser(
-            {
-                ...data.payload.addUserReducer,
-                gender: value
-            }
-        ))
+        value,
+        setValue,
     }
-
+) =>
+{
     return (
         <Form.Item
             label={`Gender`}
         >
-            <Radio.Group value={data.payload.addUserReducer.gender} onChange={(e) => handleGender(e.target.value)}>
+            <Radio.Group value={value} onChange={(e) => setValue(e.target.value)}>
                 <Radio value={'Male'}>Male</Radio>
                 <Radio value={'Female'}>Female</Radio>
                 <Radio value={'Unisex'}>Unisex</Radio>
