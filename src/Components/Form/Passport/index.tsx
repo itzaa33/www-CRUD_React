@@ -1,4 +1,5 @@
 import React from 'react'
+import isEquals from 'fast-deep-equal';
 import { Form, Input } from 'antd';
 
 type Props = {
@@ -26,4 +27,4 @@ const Comp: React.FC<Props> = (
     );
 }
 
-export default Comp;
+export default React.memo(Comp, isEquals);

@@ -30,7 +30,7 @@ import
   Button,
 } from 'antd';
 
-function Copm()
+const Copm = () =>
 {
   const [title, setTitle] = useState<string>('Mr')
   const [name, setName] = useState<string>('')
@@ -121,7 +121,7 @@ function Copm()
 
     }
   };
-  console.log(!errorName, !errorLastName, !errorCitizenid, !errorBirthday, !errorPhonenumber, !errorPassport, 'eiei')
+
   return (
     <div
       className="ant-advanced-search-form"
@@ -211,7 +211,7 @@ function Copm()
       {/* ----------------------------------------------------- */}
       <Row>
         <Col span={24} style={{ textAlign: 'right' }}>
-          <Button type="primary" onClick={()=>{onSubmit()}}>
+          <Button type="primary" onClick={() => { onSubmit() }}>
             Search
           </Button>
         </Col>

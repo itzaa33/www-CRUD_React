@@ -1,4 +1,5 @@
 import React from 'react'
+import isEquals from 'fast-deep-equal';
 import { Select, Input, Row, Col, Form } from 'antd';
 
 // image
@@ -76,4 +77,4 @@ const Comp: React.FC<Props> = (
     );
 }
 
-export default Comp;
+export default React.memo(Comp, isEquals);

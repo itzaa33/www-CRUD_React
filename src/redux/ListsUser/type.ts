@@ -3,6 +3,9 @@ export enum TypeAction
     SET_ADDUSER = "SET_ADDUSER",
 }
 
+export type TypeRedux = {
+    payload: TypeUser[]
+}
 
 export type TypeProps = TypeUser[] | null
 
