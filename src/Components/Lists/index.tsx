@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAddUser } from '../../redux/ListsUser/action'
 import * as ListsUser from '../../redux/ListsUser/type'
 import { deleteUser } from '../../utils/localStorageLists'
+import Modal from './Modal'
 
 import
 {
     Table,
-    Radio,
-    Divider,
     Button,
 } from 'antd';
 
@@ -26,6 +25,8 @@ const Comp = () =>
     const [lists, setList] = useState<TypeLists[]>([])
     const [selectedRowKeys, setSelectedRowKeys] = useState<TypeLists[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [modal, setModal] = useState<boolean>(false)
+    const [idEdit, setIdEdit] = useState<string>('')
 
     const data = useSelector<ListsUser.TypeRedux>(setAddUser);
     const dispatch = useDispatch();
@@ -48,11 +49,22 @@ const Comp = () =>
             dataIndex: 'nationality',
         },
         {
-            title: 'Action',
+            title: 'ACTION',
             dataIndex: '',
-            render: (text) => <a onClick={() => onDelete(text)}>Delete</a>,
+            render: (text) => (
+                <div>
+                    <a onClick={() => onEdit(text)} style={{ margin: '0 4px' }}>Edit</a>
+                    <a onClick={() => onDelete(text)} style={{ margin: '0 4px' }}>Delete</a>
+                </div>
+            ),
         },
     ];
+
+    function onEdit(user: TypeLists)
+    {
+        setIdEdit(user.id)
+        setModal(true)
+    }
 
     function onDelete(user: TypeLists)
     {
@@ -93,7 +105,7 @@ const Comp = () =>
                     id: item.id,
                     name: `${item.name} ${item.lastname}`,
                     gender: item.gender,
-                    phonenumber: item.phonenumber,
+                    phonenumber: item.phonenumber.replace('-',''),
                     nationality: item.nationality,
                 }
             })
@@ -123,6 +135,12 @@ const Comp = () =>
                 columns={columns}
                 dataSource={lists}
                 pagination={{ pageSize: 5 }}
+            />
+            <Modal
+                idUser={idEdit}
+                setIdUser={setIdEdit}
+                visible={modal}
+                setVisible={setModal}
             />
         </div>
     );

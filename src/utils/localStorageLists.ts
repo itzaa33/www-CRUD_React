@@ -27,3 +27,18 @@ export function deleteUser(users: TypeLists[], oldData: TypeAddUser.TypeProps)
 
     return arrayOldData
 }
+
+export function updateUser(user: TypeAddUser.TypeUser, oldData: TypeAddUser.TypeProps)
+{
+    const arrayOldData = oldData.map(item =>
+    {
+        if (item.id === user.id)
+        {
+            return user
+        }
+
+        return item
+    })
+
+    return arrayOldData
+}

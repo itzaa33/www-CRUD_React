@@ -3,16 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { setAddUser } from '../../redux/ListsUser/action'
 import { addUser } from '../../utils/localStorageLists'
-import Title from './Title'
-import Name from './Name'
-import Lastname from './Lastname'
-import Birthday from './Birthday'
-import Nationality from './Nationality'
-import Citizenid from './Citizenid'
-import Gender from './Gender'
-import Phonenumber from './Phonenumber'
-import Passport from './Passport'
-import Expectedsalary from './Expectedsalary'
+import Title from '../ElementsForm/Title'
+import Name from '../ElementsForm/Name'
+import Lastname from '../ElementsForm/Lastname'
+import Birthday from '../ElementsForm/Birthday'
+import Nationality from '../ElementsForm/Nationality'
+import Citizenid from '../ElementsForm/Citizenid'
+import Gender from '../ElementsForm/Gender'
+import Phonenumber from '../ElementsForm/Phonenumber'
+import Passport from '../ElementsForm/Passport'
+import Expectedsalary from '../ElementsForm/Expectedsalary'
 import
 {
   checkLength,
@@ -24,7 +24,6 @@ import
 
 import
 {
-  Form,
   Row,
   Col,
   Button,
@@ -44,7 +43,7 @@ const Copm = () =>
   const [expectedsalary, setExpectedsalary] = useState<string>('')
 
   const [errorName, setErrorName] = useState<boolean>(false)
-  const [errorLastName, setErrorLastName] = useState<boolean>(null)
+  const [errorLastName, setErrorLastName] = useState<boolean>(false)
   const [errorBirthday, setErrorBirthday] = useState<boolean>(false)
   const [errorCitizenid, setErrorCitizenid] = useState<boolean>(false)
   const [errorPhonenumber, setErrorPhonenumber] = useState<boolean>(false)
@@ -52,25 +51,6 @@ const Copm = () =>
 
   const data = useSelector(setAddUser);
   const dispatch = useDispatch();
-
-  // function eiei()
-  // {
-  //   let obj = {
-  //     id: uuidv4(),
-  //     title: 'title',
-  //     name: 'name',
-  //     lastname: 'lastname',
-  //     birthday: birthday,
-  //     nationality: 'nationality',
-  //     citizenid: 'citizenid',
-  //     gender: 'gender',
-  //     phonenumber: 'phonenumber',
-  //     passport: 'passport',
-  //     expectedsalary: 'expectedsalary',
-  //   }
-  //   dispatch(setAddUser(addUser(obj, data.payload)))
-  //   // localStorage.removeItem('stroe')
-  // }
 
   function onSubmit()
   {
@@ -97,9 +77,9 @@ const Copm = () =>
         lastname: lastname,
         birthday: birthday,
         nationality: nationality,
-        citizenid: citizenid.join(''),
+        citizenid: citizenid.join('-'),
         gender: gender,
-        phonenumber: phonenumber.join(''),
+        phonenumber: phonenumber.join('-'),
         passport: passport,
         expectedsalary: expectedsalary,
       }
@@ -124,7 +104,13 @@ const Copm = () =>
 
   return (
     <div
-      className="ant-advanced-search-form"
+      style={
+        {
+          margin: '30px 0',
+          padding: '60px 30px',
+          backgroundColor: 'white'
+        }
+      }
     >
       <Row gutter={30}>
         <Col span={5}>
@@ -165,15 +151,11 @@ const Copm = () =>
         </Col>
       </Row>
       {/* ----------------------------------------------------- */}
-      <Row gutter={24}>
-        <Col span={24}>
-          <Citizenid
-            value={citizenid}
-            setValue={setCitizenid}
-            error={errorCitizenid}
-          />
-        </Col>
-      </Row>
+      <Citizenid
+        value={citizenid}
+        setValue={setCitizenid}
+        error={errorCitizenid}
+      />
       {/* ----------------------------------------------------- */}
       <Row gutter={24}>
         <Col span={24}>
@@ -212,13 +194,10 @@ const Copm = () =>
       <Row>
         <Col span={24} style={{ textAlign: 'right' }}>
           <Button type="primary" onClick={() => { onSubmit() }}>
-            Search
+            Save
           </Button>
         </Col>
       </Row>
-      {/* <Button type="primary" onClick={eiei}>
-        eiei
-          </Button> */}
     </div>
   );
 }

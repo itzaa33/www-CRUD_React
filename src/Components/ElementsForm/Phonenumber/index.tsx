@@ -1,5 +1,4 @@
 import React from 'react'
-import isEquals from 'fast-deep-equal';
 import { Select, Input, Row, Col, Form } from 'antd';
 
 // image
@@ -27,7 +26,7 @@ const Comp: React.FC<Props> = (
             {
                 let array = item
                 array[index] = data.replace(/[^0-9.]/g, '')
-
+                console.log(array[index],'=',data)
                 return [
                     ...array
                 ]
@@ -77,4 +76,4 @@ const Comp: React.FC<Props> = (
     );
 }
 
-export default React.memo(Comp, isEquals);
+export default Comp;
